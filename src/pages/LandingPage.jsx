@@ -1,31 +1,59 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import brandLogo from "../assets/pro-fix-logo.png";
+import heroShopImage from "../assets/pro-fix-hero-shop.png";
+import certLucid from "../assets/cert-lucid.png";
+import certBmw from "../assets/cert-bmw.png";
+import certRivian from "../assets/cert-rivian.png";
+import certTesla from "../assets/cert-tesla.png";
+import certMercedes from "../assets/cert-mercedes.png";
 
 const services = [
   {
     title: "Collision Repair",
-    tag: "Insurance-Ready",
+    image:
+      "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=1200&q=80",
     points: [
-      "Body damage repair and precision frame straightening",
-      "Factory-grade paint matching and refinishing",
-      "Insurance coordination from estimate to delivery"
+      "Body damage repair",
+      "Frame straightening",
+      "Dent and scratch removal"
+    ]
+  },
+  {
+    title: "Auto Repairs",
+    image: heroShopImage,
+    points: [
+      "Engine diagnostics and repair",
+      "Exhaust system repairs"
+    ]
+  },
+  {
+    title: "Routine Maintenance",
+    image:
+      "https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1200&q=80",
+    points: [
+      "Oil changes",
+      "Tire rotations",
+      "Fluid checks and refills",
+      "Brake inspections and repairs"
+    ]
+  },
+  {
+    title: "Air Conditioning & Heating",
+    image:
+      "https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&w=1200&q=80",
+    points: [
+      "A/C diagnostics and recharge",
+      "Heater repair",
+      "Climate control system services"
     ]
   },
   {
     title: "Paint & Refinishing",
-    tag: "Sherwin-Williams",
+    image: heroShopImage,
     points: [
-      "Advanced color match and blending",
-      "Clear coat application for durable protection",
-      "Detail-focused finish inspection before delivery"
-    ]
-  },
-  {
-    title: "Concierge Service",
-    tag: "Convenience First",
-    points: [
-      "Vehicle pick-up and drop-off support",
-      "Progress updates throughout your repair timeline",
-      "Convenient scheduling for busy professionals"
+      "Using top-quality Sherwin Williams products",
+      "Color matching and custom finishes",
+      "Clear coat application for enhanced durability"
     ]
   }
 ];
@@ -51,21 +79,6 @@ const testimonials = [
     source: "Google/Yelp Public Review",
     quote:
       "Very respectful and courteous team with excellent workmanship. I highly recommend them over any corporate body shop."
-  }
-];
-
-const processSteps = [
-  {
-    title: "1. Quick Intake",
-    copy: "Share damage photos and your preferred schedule. We handle the next steps immediately."
-  },
-  {
-    title: "2. Insurance + Repair Plan",
-    copy: "Our team coordinates with your insurance carrier and provides a transparent repair timeline."
-  },
-  {
-    title: "3. Delivery Ready",
-    copy: "Final quality checks, paint verification, and clean handoff with pickup or drop-off support."
   }
 ];
 
@@ -100,12 +113,57 @@ const initialForm = {
   message: ""
 };
 
+const heroSlides = [
+  {
+    title: "UNIQUE EYE FOR DETAIL",
+    subtitle: "Luxury Collision Repair + Concierge Care",
+    cta: "REQUEST SERVICE",
+    image: heroShopImage
+  }
+];
+
+const certifiedBrands = [
+  {
+    title: "Tesla",
+    subtitle: "Approved Body Shop",
+    image: certTesla
+  },
+  {
+    title: "Rivian",
+    subtitle: "Certified Collision Network",
+    image: certRivian
+  },
+  {
+    title: "Lucid",
+    subtitle: "Certified Collision Center",
+    image: certLucid
+  },
+  {
+    title: "BMW",
+    subtitle: "Certified Collision Repair Center",
+    image: certBmw,
+    wide: true
+  },
+  {
+    title: "Mercedes-Benz",
+    subtitle: "Certified Collision Center",
+    image: certMercedes,
+    wide: true
+  }
+];
+
 export default function LandingPage() {
   const [formData, setFormData] = useState(initialForm);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [serviceSlideIndex, setServiceSlideIndex] = useState(0);
+  const [servicesAutoPlayPaused, setServicesAutoPlayPaused] = useState(false);
+  const servicesSliderRef = useRef(null);
 
   const year = useMemo(() => new Date().getFullYear(), []);
+  const totalServiceSlides = services.length + 1;
 
   const onInputChange = (event) => {
     const { name, value } = event.target;
@@ -139,127 +197,277 @@ export default function LandingPage() {
     }
   };
 
+  const previousSlide = () => {
+    setActiveSlide((current) => (current - 1 + heroSlides.length) % heroSlides.length);
+  };
+
+  const nextSlide = () => {
+    setActiveSlide((current) => (current + 1) % heroSlides.length);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
+  const onServiceImageError = (event) => {
+    if (event.currentTarget.src.includes("pro-fix-hero-shop")) {
+      return;
+    }
+
+    event.currentTarget.src = heroShopImage;
+  };
+
+  const previousServiceSlide = () => {
+    setServiceSlideIndex((current) => (current - 1 + totalServiceSlides) % totalServiceSlides);
+  };
+
+  const nextServiceSlide = () => {
+    setServiceSlideIndex((current) => (current + 1) % totalServiceSlides);
+  };
+
+  useEffect(() => {
+    const slider = servicesSliderRef.current;
+
+    if (!slider) {
+      return;
+    }
+
+    const slides = slider.querySelectorAll(".service-showcase-card");
+    const targetSlide = slides[serviceSlideIndex];
+
+    if (targetSlide) {
+      targetSlide.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start"
+      });
+    }
+  }, [serviceSlideIndex]);
+
+  useEffect(() => {
+    if (servicesAutoPlayPaused) {
+      return undefined;
+    }
+
+    const intervalId = window.setInterval(() => {
+      setServiceSlideIndex((current) => (current + 1) % totalServiceSlides);
+    }, 4200);
+
+    return () => window.clearInterval(intervalId);
+  }, [servicesAutoPlayPaused, totalServiceSlides]);
+
   return (
-    <div className="page">
-      <div className="topbar">
-        <div className="container topbar-inner">
-          <p>Collision + Concierge Service in Marietta, GA</p>
-          <a href="tel:+17707550042">Call (770) 755-0042</a>
-        </div>
-      </div>
-
-      <nav className="navbar">
-        <div className="container nav-inner">
-          <a href="index.html" className="brand">
-            PRO FIX COLLISION
+    <div className="page page-has-aside">
+      <aside className={`hero-side-menu ${mobileMenuOpen ? "menu-open" : ""}`}>
+        <div className="side-menu-head">
+          <a href="#top" className="side-brand" onClick={closeMobileMenu}>
+            <img src={brandLogo} alt="Pro Fix Auto Repair & Collision" />
           </a>
-          <div className="nav-links">
-            <a href="#services">Services</a>
-            <a href="#process">Process</a>
-            <a href="#reviews">Reviews</a>
-            <a href="#lead-form" className="btn btn-primary btn-small">
-              Free Estimate
-            </a>
-          </div>
+          <button
+            type="button"
+            className="side-menu-toggle"
+            aria-expanded={mobileMenuOpen}
+            aria-label="Toggle site navigation"
+            onClick={() => setMobileMenuOpen((current) => !current)}
+          >
+            {mobileMenuOpen ? "Close" : "Menu"}
+          </button>
         </div>
-      </nav>
+        <div className="side-menu-drawer">
+          <nav className="side-nav">
+            <a href="#about" onClick={closeMobileMenu}>
+              About
+            </a>
+            <a href="#brand-certified" onClick={closeMobileMenu}>
+              Brand Certified
+            </a>
+            <a href="#services" onClick={closeMobileMenu}>
+              Services
+            </a>
+            <a href="#reviews" onClick={closeMobileMenu}>
+              Reviews
+            </a>
+            <a href="#lead-form" onClick={closeMobileMenu}>
+              Contact
+            </a>
+          </nav>
+          <a href="tel:+17707550042" className="side-phone" onClick={closeMobileMenu}>
+            <span>Call Us</span>
+            <strong>(770) 755-0042</strong>
+          </a>
+        </div>
+      </aside>
 
-      <header className="hero">
-        <div className="container hero-grid">
-          <div className="hero-left">
-            <p className="eyebrow">Pro Fix Auto Repair & Collision</p>
-            <h1>Collision Repair and Concierge Service in Marietta, GA</h1>
-            <p className="hero-copy">
-              We restore your vehicle to pre-accident condition with skilled craftsmanship,
-              transparent communication, and concierge-level convenience from start to finish.
-            </p>
-            <div className="hero-badges">
-              <span>5-Star Local Reputation</span>
-              <span>Insurance Claim Support</span>
-              <span>Pickup & Delivery Available</span>
-            </div>
-            <div className="hero-actions">
-              <a href="#lead-form" className="btn btn-primary">
-                Get a Free Estimate
-              </a>
-              <a href="tel:+17707550042" className="btn btn-secondary">
-                Call (770) 755-0042
-              </a>
-            </div>
-            <div className="stat-row">
-              <div className="stat-card">
-                <strong>5.0</strong>
-                <span>Customer Rating</span>
+      <header className="brand-hero" id="top">
+        <div className="brand-hero-slider">
+          {heroSlides.map((slide, index) => (
+            <article
+              key={slide.title}
+              className={`brand-hero-slide ${index === activeSlide ? "is-active" : ""}`}
+              style={{ backgroundImage: `url(${slide.image})` }}
+              aria-hidden={index !== activeSlide}
+            >
+              <div className="brand-hero-overlay" />
+              <div className="brand-hero-content">
+                <img src={brandLogo} alt="Pro Fix Auto Repair & Collision logo" />
+                <p>{slide.subtitle}</p>
+                <h1>{slide.title}</h1>
+                <a href="#lead-form" className="btn btn-primary">
+                  {slide.cta}
+                </a>
               </div>
-              <div className="stat-card">
-                <strong>All Major</strong>
-                <span>Insurance Carriers</span>
-              </div>
-              <div className="stat-card">
-                <strong>Mon-Fri</strong>
-                <span>7:00 AM - 6:00 PM</span>
-              </div>
-            </div>
-          </div>
-          <div className="hero-card hero-float-card">
-            <h2>Fast Start Concierge Intake</h2>
-            <p>
-              Tell us what happened and we will call with next-step guidance. Priority response
-              during business hours.
-            </p>
-            <div className="hero-mini-grid">
-              <div>
-                <span>Response Window</span>
-                <strong>Same Day</strong>
-              </div>
-              <div>
-                <span>Claim Support</span>
-                <strong>Included</strong>
-              </div>
-            </div>
-            <a href="#lead-form" className="btn btn-secondary full-width">
-              Start Your Estimate
-            </a>
-          </div>
+            </article>
+          ))}
         </div>
+        {heroSlides.length > 1 ? (
+          <>
+            <div className="brand-hero-controls">
+              <button type="button" onClick={previousSlide} aria-label="Previous hero slide">
+                &#8592;
+              </button>
+              <button type="button" onClick={nextSlide} aria-label="Next hero slide">
+                &#8594;
+              </button>
+            </div>
+            <div className="brand-hero-pagination" aria-label="Hero slide numbers">
+              {heroSlides.map((_, index) => (
+                <button
+                  type="button"
+                  key={`slide-${index + 1}`}
+                  className={index === activeSlide ? "active" : ""}
+                  onClick={() => setActiveSlide(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          </>
+        ) : null}
       </header>
 
       <main>
-        <section className="section" id="services">
-          <div className="container">
-            <div className="section-heading centered">
-              <p className="eyebrow dark">Trusted Repair Capabilities</p>
-              <h2>High-Quality Services</h2>
-              <p className="section-intro">
-                From impact damage and frame correction to refinishing and concierge pickup,
-                everything is built around quality, speed, and clear communication.
+        <section className="section section-about" id="about">
+          <div className="container about-grid">
+            <article className="about-content">
+              <p className="about-stars" aria-label="Five star service">
+                ★★★★★
               </p>
+              <p className="about-kicker">Pro Fix Auto Repair & Collision</p>
+              <h2>Enjoy a Tailored Collision Repair Experience</h2>
+              <p>
+                Welcome to one of Marietta's trusted collision centers. Our experienced customer
+                service team keeps you updated at every step, while skilled technicians restore your
+                vehicle with precision and care.
+              </p>
+              <p>
+                From state-of-the-art equipment to detail-focused craftsmanship, we deliver
+                high-quality repairs from start to finish so you can return to the road with
+                confidence.
+              </p>
+            </article>
+            <aside className="about-badge-wrap" aria-label="Certified quality message">
+              <div className="about-badge">
+                <span className="about-badge-top">CERTIFIED</span>
+                <strong>GOLD CLASS</strong>
+                <span className="about-badge-bottom">Collision Repair Excellence</span>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section className="section section-certified" id="brand-certified">
+          <div className="container">
+            <div className="certified-head">
+              <p className="certified-kicker">Pro Fix Auto Repair & Collision</p>
+              <h2>Brand Certified</h2>
             </div>
-            <div className="service-grid">
-              {services.map((service) => (
-                <article key={service.title} className="service-card">
-                  <p className="service-tag">{service.tag}</p>
-                  <h3>{service.title}</h3>
-                  <ul>
-                    {service.points.map((point) => (
-                      <li key={point}>{point}</li>
-                    ))}
-                  </ul>
+            <div className="certified-grid">
+              {certifiedBrands.map((brand) => (
+                <article
+                  key={brand.title}
+                  className={`certified-card ${brand.wide ? "wide" : ""}`}
+                  aria-label={`${brand.title} ${brand.subtitle}`}
+                >
+                  <div className="certified-card-media">
+                    <img src={brand.image} alt={`${brand.title} certification logo`} />
+                  </div>
+                  <div className="certified-card-footer">
+                    <p>{brand.subtitle}</p>
+                    <strong>{brand.title}</strong>
+                  </div>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="section section-alt" id="process">
+        <section className="section section-services-dark" id="services">
           <div className="container">
-            <h2>Simple 3-Step Repair Experience</h2>
-            <div className="process-grid">
-              {processSteps.map((step) => (
-                <article key={step.title} className="process-card">
-                  <h3>{step.title}</h3>
-                  <p>{step.copy}</p>
+            <div className="certified-head services-head">
+              <p className="certified-kicker">High Quality</p>
+              <h2>Services</h2>
+            </div>
+            <div
+              className="services-slider"
+              ref={servicesSliderRef}
+              onMouseEnter={() => setServicesAutoPlayPaused(true)}
+              onMouseLeave={() => setServicesAutoPlayPaused(false)}
+              onTouchStart={() => setServicesAutoPlayPaused(true)}
+              onTouchEnd={() => setServicesAutoPlayPaused(false)}
+            >
+              <article className="service-showcase-card services-contact-slide">
+                <div className="service-card-body">
+                  <p className="services-contact-kicker">Tailored Support</p>
+                  <h3>Need Help Choosing the Right Service?</h3>
+                  <p className="services-contact-copy">
+                    Speak with our team and get expert guidance based on your vehicle and repair
+                    needs.
+                  </p>
+                  <a href="tel:+17707550042" className="services-callout">
+                    <span>For Information</span>
+                    <strong>(770) 755-0042</strong>
+                  </a>
+                </div>
+              </article>
+              {services.map((service, index) => (
+                <article key={service.title} className="service-showcase-card">
+                  <div className="service-card-top">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      loading={index > 1 ? "lazy" : "eager"}
+                      onError={onServiceImageError}
+                    />
+                  </div>
+                  <div className="service-card-body">
+                    <h3>{service.title}</h3>
+                    <ul>
+                      {service.points.map((point) => (
+                        <li key={point}>{point}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </article>
+              ))}
+            </div>
+            <div className="services-slider-controls">
+              <button type="button" onClick={previousServiceSlide} aria-label="Previous service slide">
+                &#8592;
+              </button>
+              <button type="button" onClick={nextServiceSlide} aria-label="Next service slide">
+                &#8594;
+              </button>
+            </div>
+            <div className="services-slider-dots" aria-label="Service slider pages">
+              {Array.from({ length: totalServiceSlides }, (_, index) => (
+                <button
+                  type="button"
+                  key={`service-slide-${index + 1}`}
+                  className={serviceSlideIndex === index ? "active" : ""}
+                  onClick={() => setServiceSlideIndex(index)}
+                  aria-label={`Go to service slide ${index + 1}`}
+                />
               ))}
             </div>
           </div>
@@ -413,7 +621,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section className="section section-alt">
+        <section className="section section-faq-theme">
           <div className="container">
             <h2>Frequently Asked Questions</h2>
             <div className="faq-grid">
@@ -431,6 +639,7 @@ export default function LandingPage() {
       <footer className="footer">
         <div className="container footer-grid">
           <div>
+            <img src={brandLogo} alt="Pro Fix Auto Repair & Collision logo" className="footer-logo" />
             <p className="footer-title">Pro Fix Auto Repair & Collision Inc.</p>
             <p>1460 Roswell Rd, Marietta, GA 30062</p>
           </div>
