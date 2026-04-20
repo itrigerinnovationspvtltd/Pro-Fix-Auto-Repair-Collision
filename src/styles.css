@@ -1,13 +1,13 @@
 :root {
-  --bg: #060c18;
-  --surface: #0f172a;
+  --bg: #0b1628;
+  --surface: #13233b;
   --surface-light: #f1f5f9;
   --text: #0f172a;
   --text-inverse: #f8fafc;
   --muted: #cbd5e1;
-  --primary: #155dfc;
-  --primary-dark: #1d4ed8;
-  --accent: #2563eb;
+  --primary: #ffb342;
+  --primary-dark: #d9922f;
+  --accent: #1f6fd6;
 }
 
 * {
@@ -42,7 +42,7 @@ a {
   position: fixed;
   inset: 0 auto 0 0;
   width: 220px;
-  background: linear-gradient(180deg, #050608 0%, #0d1117 100%);
+  background: linear-gradient(180deg, #0a1629 0%, #121f35 100%);
   color: #dbeafe;
   display: flex;
   flex-direction: column;
@@ -139,7 +139,7 @@ a {
 .brand-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(10, 14, 20, 0.78) 0%, rgba(7, 11, 18, 0.28) 45%, rgba(7, 11, 18, 0.55) 100%);
+  background: linear-gradient(90deg, rgba(7, 17, 34, 0.86) 0%, rgba(9, 18, 34, 0.38) 45%, rgba(8, 16, 30, 0.7) 100%);
 }
 
 .brand-hero-content {
@@ -166,7 +166,7 @@ a {
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-size: 0.75rem;
-  color: #bfdbfe;
+  color: #ffd089;
 }
 
 .brand-hero-content h1 {
@@ -181,10 +181,11 @@ a {
 }
 
 .brand-hero-content .btn-primary {
-  background: linear-gradient(135deg, #155dfc, #1d4ed8);
-  box-shadow: 0 16px 32px rgba(21, 94, 252, 0.35);
+  background: linear-gradient(135deg, #ffb342, #d9922f);
+  box-shadow: 0 16px 32px rgba(255, 179, 66, 0.34);
   letter-spacing: 0.14em;
   font-size: 0.8rem;
+  color: #0e1a2e;
 }
 
 .brand-hero-controls {
@@ -255,13 +256,13 @@ a {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary), #1e40af);
-  color: #fff;
-  box-shadow: 0 14px 28px rgba(21, 94, 252, 0.35);
+  background: linear-gradient(135deg, var(--primary), #f29c1f);
+  color: #0d1a2d;
+  box-shadow: 0 14px 28px rgba(255, 179, 66, 0.32);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--primary-dark), #1e3a8a);
+  background: linear-gradient(135deg, var(--primary-dark), #c88217);
 }
 
 .btn-secondary {
@@ -271,14 +272,14 @@ a {
 }
 
 .btn-dark {
-  background: rgba(21, 94, 252, 0.2);
-  border: 1px solid rgba(96, 165, 250, 0.55);
+  background: rgba(255, 179, 66, 0.16);
+  border: 1px solid rgba(255, 179, 66, 0.52);
   color: #ffffff;
   box-shadow: 0 10px 20px rgba(2, 6, 23, 0.25);
 }
 
 .btn-dark:hover {
-  background: rgba(29, 78, 216, 0.45);
+  background: rgba(255, 179, 66, 0.3);
 }
 
 .hero {
@@ -455,17 +456,17 @@ h3 {
 }
 
 .section-soft {
-  background: linear-gradient(100deg, #0f1217 0%, #1a1f27 58%, #131821 100%);
+  background: linear-gradient(100deg, #0b1628 0%, #12233b 58%, #0e1d33 100%);
   color: #f8fafc;
 }
 
 .section-faq-theme {
-  background: linear-gradient(100deg, #0d1116 0%, #171c24 58%, #12171e 100%);
+  background: linear-gradient(100deg, #0a1424 0%, #122039 58%, #0e1b30 100%);
   color: #f8fafc;
 }
 
 .section-about {
-  background: linear-gradient(100deg, #111318 0%, #191d23 55%, #161a20 100%);
+  background: linear-gradient(100deg, #0a1628 0%, #12243d 55%, #0d1d33 100%);
   color: #f8fafc;
 }
 
@@ -502,7 +503,7 @@ h3 {
   margin: 0 0 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: #d3a85f;
+  color: #ffb342;
   font-size: 0.75rem;
   font-weight: 700;
 }
@@ -547,7 +548,7 @@ h3 {
 }
 
 .section-certified {
-  background: linear-gradient(100deg, #101216 0%, #181c22 55%, #13171d 100%);
+  background: linear-gradient(100deg, #0a1628 0%, #12243c 55%, #0d1d33 100%);
   color: #f8fafc;
 }
 
@@ -559,7 +560,7 @@ h3 {
   margin: 0 0 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: #d3a85f;
+  color: #ffb342;
   font-size: 0.74rem;
   font-weight: 700;
 }
@@ -627,7 +628,7 @@ h3 {
 }
 
 .section-services-dark {
-  background: linear-gradient(100deg, #0f1217 0%, #1a1f27 58%, #131821 100%);
+  background: linear-gradient(100deg, #0a1426 0%, #12223a 58%, #0d1b2f 100%);
   color: #f8fafc;
 }
 
@@ -656,7 +657,7 @@ h3 {
 }
 
 .services-slider::-webkit-scrollbar-thumb {
-  background: rgba(214, 166, 91, 0.7);
+  background: rgba(255, 179, 66, 0.7);
   border-radius: 999px;
 }
 
@@ -700,7 +701,7 @@ h3 {
 }
 
 .services-slider-dots button.active {
-  background: #d6a65b;
+  background: #ffb342;
 }
 
 .services-callout {
@@ -719,7 +720,7 @@ h3 {
 
 .services-callout strong {
   font-size: 1.55rem;
-  color: #d6a65b;
+  color: #ffb342;
   font-weight: 500;
 }
 
@@ -774,8 +775,28 @@ h3 {
 
 .service-showcase-card li::before {
   content: "✓";
-  color: #c49d5f;
+  color: #ffb342;
   font-weight: 700;
+}
+
+.service-card-call {
+  margin-top: 0.95rem;
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.62rem 1rem;
+  background: linear-gradient(135deg, #ffb342, #d9922f);
+  color: #0d1a2d;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 18px rgba(2, 6, 23, 0.32);
+}
+
+.service-card-call:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #ffc66a, #e3a13c);
 }
 
 .services-contact-slide {
@@ -792,7 +813,7 @@ h3 {
 
 .services-contact-kicker {
   margin: 0;
-  color: #d3a85f;
+  color: #ffb342;
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.16em;
@@ -1038,10 +1059,33 @@ h3 {
   display: grid;
   place-items: center;
   border-radius: 0.5rem;
-  background: #1d4ed8;
-  color: #dbeafe;
+  background: #ffb342;
+  color: #0d1a2f;
   font-size: 0.78rem;
   font-weight: 900;
+}
+
+.floating-call-button {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 9999;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.85rem 1.15rem;
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0d1a2d;
+  background: linear-gradient(135deg, #ffb342, #d9922f);
+  border: 1px solid rgba(255, 227, 176, 0.55);
+  box-shadow: 0 18px 32px rgba(2, 6, 23, 0.38);
+}
+
+.floating-call-button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #ffc66a, #e3a13c);
 }
 
 .estimate-point p {
@@ -1420,5 +1464,12 @@ textarea:focus {
 
   .copyright {
     text-align: left;
+  }
+
+  .floating-call-button {
+    right: 0.85rem;
+    bottom: 0.85rem;
+    padding: 0.78rem 1rem;
+    font-size: 0.8rem;
   }
 }

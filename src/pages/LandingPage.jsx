@@ -236,10 +236,10 @@ export default function LandingPage() {
     const targetSlide = slides[serviceSlideIndex];
 
     if (targetSlide) {
-      targetSlide.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "start"
+      const targetOffset = targetSlide.offsetLeft - slider.offsetLeft;
+      slider.scrollTo({
+        left: targetOffset,
+        behavior: "smooth"
       });
     }
   }, [serviceSlideIndex]);
@@ -279,7 +279,7 @@ export default function LandingPage() {
               About
             </a>
             <a href="#brand-certified" onClick={closeMobileMenu}>
-              Brand Certified
+              Brands We Service
             </a>
             <a href="#services" onClick={closeMobileMenu}>
               Services
@@ -380,7 +380,7 @@ export default function LandingPage() {
           <div className="container">
             <div className="certified-head">
               <p className="certified-kicker">Pro Fix Auto Repair & Collision</p>
-              <h2>Brand Certified</h2>
+              <h2>Brands We Service</h2>
             </div>
             <div className="certified-grid">
               {certifiedBrands.map((brand) => (
@@ -428,6 +428,9 @@ export default function LandingPage() {
                     <span>For Information</span>
                     <strong>(770) 755-0042</strong>
                   </a>
+                  <a href="tel:+17707550042" className="service-card-call">
+                    Call Us
+                  </a>
                 </div>
               </article>
               {services.map((service, index) => (
@@ -447,6 +450,9 @@ export default function LandingPage() {
                         <li key={point}>{point}</li>
                       ))}
                     </ul>
+                    <a href="tel:+17707550042" className="service-card-call">
+                      Call Us
+                    </a>
                   </div>
                 </article>
               ))}
@@ -650,6 +656,10 @@ export default function LandingPage() {
           <p className="copyright">© {year} Pro Fix Auto Repair & Collision</p>
         </div>
       </footer>
+
+      <a href="tel:+17707550042" className="floating-call-button" aria-label="Call Pro Fix Auto Repair">
+        Call Us
+      </a>
     </div>
   );
 }
