@@ -130,23 +130,23 @@ const certifiedBrands = [
   },
   {
     title: "Rivian",
-    subtitle: "Certified Collision Network",
+    subtitle: "Collision Network",
     image: certRivian
   },
   {
     title: "Lucid",
-    subtitle: "Certified Collision Center",
+    subtitle: "Collision Center",
     image: certLucid
   },
   {
     title: "BMW",
-    subtitle: "Certified Collision Repair Center",
+    subtitle: "Collision Repair Center",
     image: certBmw,
     wide: true
   },
   {
     title: "Mercedes-Benz",
-    subtitle: "Certified Collision Center",
+    subtitle: "Collision Center",
     image: certMercedes,
     wide: true
   }
@@ -366,9 +366,9 @@ export default function LandingPage() {
                 confidence.
               </p>
             </article>
-            <aside className="about-badge-wrap" aria-label="Certified quality message">
+            <aside className="about-badge-wrap" aria-label="Trusted quality message">
               <div className="about-badge">
-                <span className="about-badge-top">CERTIFIED</span>
+                <span className="about-badge-top">TRUSTED</span>
                 <strong>GOLD CLASS</strong>
                 <span className="about-badge-bottom">Collision Repair Excellence</span>
               </div>
@@ -390,7 +390,7 @@ export default function LandingPage() {
                   aria-label={`${brand.title} ${brand.subtitle}`}
                 >
                   <div className="certified-card-media">
-                    <img src={brand.image} alt={`${brand.title} certification logo`} />
+                    <img src={brand.image} alt={`${brand.title} brand logo`} />
                   </div>
                   <div className="certified-card-footer">
                     <p>{brand.subtitle}</p>

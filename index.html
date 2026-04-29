@@ -6,11 +6,41 @@
     <title>Pro Fix Collision & Concierge Service</title>
     <meta
       name="description"
-      content="Collision repair and concierge auto service in Marietta, GA. Certified technicians, insurance support, and pick-up/delivery convenience."
+      content="Collision repair and concierge auto service in Marietta, GA. Expert technicians, insurance support, and pick-up/delivery convenience."
     />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      function attachAOCode() {
+        const apptBtns = document.querySelectorAll("a[href='#lead-form']");
+
+        for (const apptBtn of apptBtns) {
+          if (apptBtn.dataset.aoBound === "true") {
+            continue;
+          }
+
+          apptBtn.dataset.aoBound = "true";
+          apptBtn.href = "";
+          apptBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (window.AutoOps && typeof window.AutoOps.show === "function") {
+              window.AutoOps.show();
+            }
+          });
+        }
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", attachAOCode);
+      } else {
+        attachAOCode();
+      }
+
+      const observer = new MutationObserver(() => attachAOCode());
+      observer.observe(document.body, { childList: true, subtree: true });
+    </script>
+    <script id="portal-scripts" data-api-key="d546bb38158c43f1b8ab876ce29cc6c6" data-google-analytics-enabled="true" data-loading-color="04223e" src="https://portal.autoops.com/portal-scripts.js"></script>
   </body>
 </html>
